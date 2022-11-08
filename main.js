@@ -2,7 +2,7 @@ const app = document.querySelector(".weather-app");
 const temp = document.querySelector(".temp");
 const dateOutPut = document.querySelector(".date");
 const timeOutPut = document.querySelector(".time");
-const conditionOutPut = document.querySelector(".condition");
+const conditionOutpPut = document.querySelector(".condition");
 const nameOutPut = document.querySelector(".name");
 const icon = document.querySelector(".icon");
 const cloudOutPut = document.querySelector(".cloud");
@@ -11,7 +11,7 @@ const windOutPut = document.querySelector(".wind");
 const form = document.getElementById(".locationInput");
 const search = document.querySelector(".search");
 const btn = document.querySelector(".submit");
-const cities = document.querySelector(".city");
+const cities = document.querySelectorAll(".city");
 const API_KEY= "c5c6df7a6460422180e154237220811";
 
 //const api = process.env.API_KEY
@@ -19,7 +19,7 @@ const API_KEY= "c5c6df7a6460422180e154237220811";
 let cityInput = "London";
 
 //Add click event to each city in the panel
-Array.from(cities).forEach((city) => {
+cities.forEach((city) => {
   city.addEventListener("click", (e) => {
     //change default city to the city clicked
     cityInput = e.target.innerHTML;
@@ -32,7 +32,7 @@ Array.from(cities).forEach((city) => {
 //Add submit event to the form
 form?.addEventListener("submit", (e) => {
     //if the input is empty
-  if (search.value.length == 0) {
+  if (search.value === "") {
     alert("Please enter a city name");
   } else {
     //change the default city to the city entered
@@ -48,7 +48,7 @@ form?.addEventListener("submit", (e) => {
 });
 
 function dayOfTheWeek() {
-  let weekday = [
+  const weekday = [
     "Sunday",
     "Monday",
     "Tuesday",
@@ -60,7 +60,6 @@ function dayOfTheWeek() {
   return weekday[new Date(`${day}/${month}/${year}`).getDay()];
  
 }
-console.log('hola2')
 
 function fetchWeatherData() {
     //fetch the weather data from the api
@@ -73,16 +72,16 @@ function fetchWeatherData() {
 
 
       temp.innerHTML = data.current.temp_c + "&#176;"
-      conditionOutPut.innerHTML = data.current.condition.text;
+      conditionOutpPut.innerHTML = data.current.condition.text;
 
-
-      const date = data.loaction.localtime;
-      const y = parseInt(date.subr(0, 4));
-      const m = parseInt(date.subr(5, 2));
-      const d = parseInt(date.subr(8, 2));
+    //get the date from api
+      const date = data.location.localtime;
+      const y = parseInt(date.substr(0, 4));
+      const m = parseInt(date.substr(5, 2));
+      const d = parseInt(date.substr(8, 2));
       const time = date.substr(11);
 
-
+    //changing the format of the date
       dateOutPut.innerHTML = `${dayOfTheWeek(d, m, y)} ${d} ${m} ${y}`;
       timeOutPut.innerHTML = time;
       nameOutPut.innerHTML = data.location.name;
@@ -95,7 +94,7 @@ function fetchWeatherData() {
       //Add the weather details to the page
       cloudOutPut.innerHTML = data.current.cloud + "%";
       humidityOutPut.innerHTML = data.current.humidity + "%";
-      windOutPut.innerHTML = data.current.wind_mph + "km/h";
+      windOutPut.innerHTML = data.current.wind_kph + "km/h";
 
       //Set defualt time of the day
       let timeOfDay = "day";
@@ -171,4 +170,5 @@ function fetchWeatherData() {
     });
 }
 fetchWeatherData();
+app.style.opacity = "1";
  
