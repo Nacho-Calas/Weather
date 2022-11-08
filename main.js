@@ -47,7 +47,7 @@ form?.addEventListener("submit", (e) => {
   e.preventDefault();
 });
 
-function dayOfTheWeek() {
+function dayOfTheWeek(day, month, year) {
   const weekday = [
     "Sunday",
     "Monday",
@@ -69,7 +69,6 @@ function fetchWeatherData() {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
-
 
       temp.innerHTML = data.current.temp_c + "&#176;"
       conditionOutpPut.innerHTML = data.current.condition.text;
@@ -163,9 +162,8 @@ function fetchWeatherData() {
       }
       app.style.opacity = "1";
     })
-    .catch((err) => {
+    .catch(() => {
       alert("Please enter a valid city name");
-      console.log(err);
       app.style.opacity = "1";
     });
 }
