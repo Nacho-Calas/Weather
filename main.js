@@ -63,25 +63,35 @@ function dayOfTheWeek() {
 console.log('hola2')
 
 function fetchWeatherData() {
+    //fetch the weather data from the api
+    //using my own Key
   fetch(
     `http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${cityInput}&aqi=no`)
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
+
+
+      temp.innerHTML = data.current.temp_c + "&#176;"
+      conditionOutPut.innerHTML = data.current.condition.text;
+
+
       const date = data.loaction.localtime;
       const y = parseInt(date.subr(0, 4));
       const m = parseInt(date.subr(5, 2));
       const d = parseInt(date.subr(8, 2));
-      const time = date.subr(11);
+      const time = date.substr(11);
+
+
       dateOutPut.innerHTML = `${dayOfTheWeek(d, m, y)} ${d} ${m} ${y}`;
       timeOutPut.innerHTML = time;
       nameOutPut.innerHTML = data.location.name;
-      const iconId = data.current.condition.icon.substr(
-        "//cdn.weatherapi.com/weather/64x64/".length
-      );
-      icon.src = "./icons/";
-      console.log('hola')
 
+
+      const iconId = data.current.condition.icon.substr(
+        "//cdn.weatherapi.com/weather/64x64/".length);
+      icon.src = "./icons/" + iconId;
+      
       //Add the weather details to the page
       cloudOutPut.innerHTML = data.current.cloud + "%";
       humidityOutPut.innerHTML = data.current.humidity + "%";
@@ -95,56 +105,58 @@ function fetchWeatherData() {
       if (!data.current.is_day) {
         timeOfDay = "night";
       }
-      if (code === 1000) {
-        app.style.backgroundImage = `url('./images/${timeOfDay}/sunny.jpg')`;
+      if (code == 1000) {
+        app.style.backgroundImage = `url('./images/${timeOfDay}/clear.jpg')`;
+        btn.style.background = "#e5ba92";
+
         if (timeOfDay === "night") {
           btn.style.background = "#181e27";
         }
       } else if (
-        code === 1003 ||
-        code === 1006 ||
-        code === 1009 ||
-        code === 1030 ||
-        code === 1069 ||
-        code === 1087 ||
-        code === 1135 ||
-        code === 1273 ||
-        code === 1276 ||
-        code === 1279 ||
-        code === 1282
+        code == 1003 ||
+        code == 1006 ||
+        code == 1009 ||
+        code == 1030 ||
+        code == 1069 ||
+        code == 1087 ||
+        code == 1135 ||
+        code == 1273 ||
+        code == 1276 ||
+        code == 1279 ||
+        code == 1282
       ) {
-        app.style.backgroundImage = `url('./images/${timeOfDay}//* agregar cloudy day */.jpg')`;
+        app.style.backgroundImage = `url('./images/${timeOfDay}/cloudy.jpg')`;
         btn.stlye.background = "#fa6d1b";
-        if (timeOfDay === "night") {
+        if (timeOfDay == "night") {
           btn.style.background = "#181e27";
         }
       } else if (
-        code === 1063 ||
-        code === 1069 ||
-        code === 1072 ||
-        code === 1150 ||
-        code === 1153 ||
-        code === 1180 ||
-        code === 1183 ||
-        code === 1186 ||
-        code === 1189 ||
-        code === 1192 ||
-        code === 1195 ||
-        code === 1204 ||
-        code === 1207 ||
-        code === 1240 ||
-        code === 1243 ||
-        code === 1246 ||
-        code === 1249 ||
-        code === 1252
+        code == 1063 ||
+        code == 1069 ||
+        code == 1072 ||
+        code == 1150 ||
+        code == 1153 ||
+        code == 1180 ||
+        code == 1183 ||
+        code == 1186 ||
+        code == 1189 ||
+        code == 1192 ||
+        code == 1195 ||
+        code == 1204 ||
+        code == 1207 ||
+        code == 1240 ||
+        code == 1243 ||
+        code == 1246 ||
+        code == 1249 ||
+        code == 1252
       ) {
-        app.style.backgroundImage = `url('./images/${timeOfDay}/rainyday.jpg')`;
+        app.style.backgroundImage = `url('./images/${timeOfDay}/rainy.jpg')`;
         btn.style.background = "#647d75";
         if (timeOfDay == "night") {
           btn.style.background = "#325c80";
         }
       } else {
-        app.style.backgroundImage = `url('./images/${timeOfDay}/snowday.jpg')`;
+        app.style.backgroundImage = `url('./images/${timeOfDay}/snowy.jpg')`;
         btn.style.background = "#4d72aa";
         if (timeOfDay == "night") {
           btn.style.background = "#1b1b1b";
@@ -155,10 +167,8 @@ function fetchWeatherData() {
     .catch((err) => {
       alert("Please enter a valid city name");
       console.log(err);
+      app.style.opacity = "1";
     });
-
-  fetchWeatherData();
-  app.style.opacity = "1";
-
 }
+fetchWeatherData();
  
