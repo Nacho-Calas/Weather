@@ -8,7 +8,7 @@ const icon = document.querySelector(".icon");
 const cloudOutPut = document.querySelector(".cloud");
 const humidityOutPut = document.querySelector(".humidity");
 const windOutPut = document.querySelector(".wind");
-const form = document.getElementById(".locationInput");
+const form = document.getElementById("locationInput");
 const search = document.querySelector(".search");
 const btn = document.querySelector(".submit");
 const cities = document.querySelectorAll(".city");
@@ -16,7 +16,7 @@ const API_KEY= "c5c6df7a6460422180e154237220811";
 
 //const api = process.env.API_KEY
 //defualt city when the page loads
-let cityInput = "London";
+let cityInput = "Buenos Aires";
 
 //Add click event to each city in the panel
 cities.forEach((city) => {
