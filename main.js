@@ -18,6 +18,8 @@ const API_KEY= "c5c6df7a6460422180e154237220811";
 //defualt city when the page loads
 let cityInput = "Buenos Aires";
 
+/// example
+
 //Add click event to each city in the panel
 cities.forEach((city) => {
   city.addEventListener("click", (e) => {
